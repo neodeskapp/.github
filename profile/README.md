@@ -78,7 +78,7 @@ Ask on the [NeoDesk Discord](https://discord.gg/nwERSawufr) or in
 Changes come in as pull requests; the
 [contributing guide](https://docs.neode.sk/development/contributing/) says
 what one needs. Report a security problem privately, as the
-[security policy](https://github.com/neodeskapp/neodesk/blob/main/SECURITY.md)
+[security policy](https://github.com/neodeskapp/.github/blob/main/SECURITY.md)
 describes.
 
 NeoDesk is under the [AGPL-3.0](https://github.com/neodeskapp/neodesk/blob/main/LICENSE).
