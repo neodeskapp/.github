@@ -1,8 +1,7 @@
 # Contributing to NeoDesk
 
 Changes come in as pull requests against `main`. This page applies to every
-neodeskapp repository that has no contributing guide of its own. The full
-guide is on the website:
+neodeskapp repository. The full guide is on the website:
 
 - [Contributing](https://docs.neode.sk/development/contributing/): how to
   propose a change, what a pull request needs, commit messages and
@@ -27,6 +26,33 @@ not on Discord or in Discussions.
 4. Build what you changed and run its tests. Write tests that fail when the
    behaviour they cover is broken.
 5. Open the pull request against `main` and fill in the template.
+
+## Desktop client
+
+[docs/BUILD_DESKTOP.md](https://github.com/neodeskapp/neodesk-client/blob/main/docs/BUILD_DESKTOP.md)
+in neodesk-client has the full build steps for Windows x64 and Linux x64,
+with the tool versions CI uses. In short:
+
+```sh
+git submodule update --init --recursive
+python build.py --flutter --hwcodec --vram --skip-portable-pack   # Windows
+python3 ./build.py --flutter --hwcodec                            # Linux
+python3 flutter/tool/check_colours.py   # the colour check CI runs on flutter/lib
+cd flutter && flutter test && flutter analyze
+```
+
+- On Windows, `scripts/check_desktop_env_windows.ps1` checks the toolchain
+  first.
+- Colours come from the tokens in `flutter/lib/common/theme/nd_theme.dart`.
+- The Flutter tests and the analyzer need `flutter/lib/generated_bridge.dart`,
+  which is not in the repository. Generate it with
+  `flutter_rust_bridge_codegen` 1.80.1 as `.github/workflows/bridge.yml`
+  does, or take it from the bridge artifact of a CI run.
+- Icons come from Material Symbols through `NdIcons`. To add one, add its
+  line to `flutter/tool/nd_symbols.txt` and run
+  `python3 tool/build_symbols.py` in `flutter/`.
+- The client is built on RustDesk: keep its copyright and license notices
+  in the files you change.
 
 ## Pull request rules
 
